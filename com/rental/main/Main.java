@@ -21,11 +21,16 @@ public class Main {
         agency.addVehicle(motorcycle);
         agency.addVehicle(truck);
 
-        // Create a customer
-        Customer customer = new Customer("C001", "Ekow Tawiah");
-
         // Scanner for user input
         Scanner scanner = new Scanner(System.in);
+
+        // Create a customer
+        System.out.print("Enter your name: ");
+        String customerName = scanner.nextLine();
+        System.out.print("Enter your customer ID: ");
+        String customerId = scanner.nextLine();
+        Customer customer = new Customer(customerId, customerName);
+
         int choice;
 
         System.out.println("Welcome to the Vehicle Rental System!");
