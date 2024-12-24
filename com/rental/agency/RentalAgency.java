@@ -2,15 +2,18 @@ package com.rental.agency;
 
 import com.rental.vehicle.Vehicle;
 import com.rental.customer.Customer;
+import com.rental.transaction.RentalTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RentalAgency {
     private List<Vehicle> fleet;
+    private List<RentalTransaction> transactions;
 
     public RentalAgency() {
         this.fleet = new ArrayList<>();
+        this.transactions = new ArrayList<>();
     }
 
     public void addVehicle(Vehicle vehicle) {
@@ -34,20 +37,36 @@ public class RentalAgency {
         Vehicle vehicle = findVehicleById(vehicleId);
         if (vehicle != null && vehicle.isAvailable()) {
             vehicle.setAvailable(false);
-            customer.addRental(vehicleId);
-            System.out.println("Rental Successful! " + vehicle.getModel() + " is now rented to " + customer.getName() + ".");
+            RentalTransaction transaction = new RentalTransaction(
+                    "TXN" + (transactions.size() + 1), vehicle, customer, days
+            );
+            transactions.add(transaction);
+            customer.addRentalHistory(transaction.toString());
+            customer.addLoyaltyPoints(days * 10);
+            System.out.println("Rental Successful:\n" + transaction);
         } else {
             System.out.println("Vehicle is not available for rental.");
         }
     }
 
     public void returnVehicle(String vehicleId) {
-        Vehicle vehicle = findVehicleById(vehicleId);
-        if (vehicle != null && !vehicle.isAvailable()) {
-            vehicle.setAvailable(true);
-            System.out.println(vehicle.getModel() + " has been successfully returned and is now available.");
+        for (RentalTransaction transaction : transactions) {
+            if (transaction.getVehicle().getVehicleId().equalsIgnoreCase(vehicleId) && !transaction.isCompleted()) {
+                transaction.completeTransaction();
+                System.out.println("Vehicle returned successfully:\n" + transaction);
+                return;
+            }
+        }
+        System.out.println("No ongoing transaction found for the given vehicle ID.");
+    }
+
+    public void viewTransactions() {
+        if (transactions.isEmpty()) {
+            System.out.println("No transactions available.");
         } else {
-            System.out.println("Error: Vehicle is either already available or does not exist.");
+            for (RentalTransaction transaction : transactions) {
+                System.out.println(transaction + "\n");
+            }
         }
     }
 }

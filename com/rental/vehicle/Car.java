@@ -7,11 +7,11 @@ public class Car extends Vehicle {
 
     @Override
     public double calculateRentalCost(int days) {
-        return getBaseRentalRate() * days * 1.1; // Cars have a 10% additional cost
+        return getBaseRentalRate() * days;
     }
 
     @Override
-    public String getSpecialFeatures() {
-        return "Air Conditioning, Music System";
+    public boolean isAvailableForRental() {
+        return isAvailable();
     }
 }

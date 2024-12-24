@@ -7,11 +7,11 @@ public class Motorcycle extends Vehicle {
 
     @Override
     public double calculateRentalCost(int days) {
-        return getBaseRentalRate() * days; // No additional cost for motorcycles
+        return getBaseRentalRate() * days * 0.9; // 10% discount for motorcycles
     }
 
     @Override
-    public String getSpecialFeatures() {
-        return "Lightweight, Fuel Efficient";
+    public boolean isAvailableForRental() {
+        return isAvailable();
     }
 }
