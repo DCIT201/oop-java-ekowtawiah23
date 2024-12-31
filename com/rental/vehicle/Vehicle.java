@@ -1,9 +1,9 @@
 package com.rental.vehicle;
 
 public abstract class Vehicle {
-    private String vehicleId;
-    private String model;
-    private double baseRentalRate;
+    private final String vehicleId;
+    private final String model;
+    private final double baseRentalRate;
     private boolean isAvailable;
 
     public Vehicle(String vehicleId, String model, double baseRentalRate, boolean isAvailable) {

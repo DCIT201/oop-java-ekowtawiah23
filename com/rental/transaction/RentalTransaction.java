@@ -70,7 +70,7 @@ public class RentalTransaction {
                 "\nCustomer: " + customer.getName() +
                 "\nRental Date: " + rentalDate +
                 "\nReturn Date: " + returnDate +
-                "\nRental Days: " + rentalDays +
+                "\nRental Days: ¢" + rentalDays +
                 "\nTotal Cost: ¢" + totalCost +
                 "\nStatus: " + (isCompleted ? "Completed" : "Ongoing");
     }
